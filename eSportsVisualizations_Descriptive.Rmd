@@ -1,0 +1,54 @@
+---
+title: "Homework 2"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+```{r}
+# reading file as csv
+esports<-read_csv("Esports - Tournaments with largest prize pools.csv")
+esports
+```
+
+# Histogram
+```{r}
+# Creating ggplot histogram 
+US<- filter(esports, Country =="United States")
+
+ggplot(data=US) + 
+  geom_histogram(mapping = aes(x = TeamPlay), fill = "red", color = "black", bins = 15) + labs(title ="Tournaments Held in the United States",
+       y="Total Tournaments",
+       x= "Team Play") 
+ 
+```
+
+# Violin 
+```{r}
+# Creating Violin
+greater<-filter(esports, TotalUSDPrize>4000000)
+options(scipen = 100)
+ggplot(greater) +
+ geom_violin(aes(x = Country, y=TotalUSDPrize), fill='blue') +
+  
+  labs(title ="Countries With Prizes Greater Than $4 Million", subtitle="Countries vs. Total Prize",
+       y="Total USD Prize",
+       x= "Countries") 
+
+```
+
+# Boxplot
+
+```{r}
+# Boxplot
+greater<-filter(esports, TotalUSDPrize>3000000)
+options(scipen = 100)
+ggplot(data=greater, mapping=aes(x=Country, y=TotalUSDPrize)) +
+ geom_boxplot() +
+  
+  labs(title ="Countries With Prizes Greater Than $3 Million", subtitle="Countries vs. Total Prize",
+       y="Total USD Prize",
+       x= "Countries") 
+```
